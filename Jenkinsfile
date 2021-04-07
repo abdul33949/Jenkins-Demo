@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Code Is Deploying Yeepiiii-late-night-add'
+                echo 'Code Is Deploying Yeepiiii-late-nigh'
             }
         }
     }
