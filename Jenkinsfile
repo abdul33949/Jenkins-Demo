@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Code Is Deploying Yeepiiii Test My PR'
+                echo 'Code Is Deploying Yeepiiii'
             }
         }
     }
