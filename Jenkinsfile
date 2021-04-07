@@ -14,10 +14,10 @@ pipeline {
                 echo 'Code Is Testing'
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Code Is Deploying'
-            }
+        // stage('Deploy') {
+        //     steps {
+        //         echo 'Code Is Deploying'
+        //     }
         }
     }
 }
