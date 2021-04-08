@@ -19,7 +19,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                echo 'Code Is Deploying Yeepiiii-late-nightesadfas'
+                echo 'Code Is Deploying Yeepiiii-late-nightesadfa'
             }
         }
     }
