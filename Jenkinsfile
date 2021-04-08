@@ -10,16 +10,17 @@ pipeline {
             }
         }
         stage('Test') {
-            when {
-                branch 'master'
-            }
             steps {
                 echo 'Code Is Testing'
             }
         }
         stage('Deploy') {
+              when {
+                branch 'master'
+                environment name: 'DEPLOY_TO', value: 'master'
+            }
             steps {
-                echo 'Code Is Deploying Yeepiiii-late-nightesadfa'
+                echo 'Deploying'
             }
         }
     }
