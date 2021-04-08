@@ -10,14 +10,14 @@ pipeline {
             }
         }
         stage('Test') {
-            when {
-                branch 'master'
-            }
             steps {
                 echo 'Code Is Testing'
             }
         }
         stage('Deploy') {
+             when {
+                branch 'master'
+            }
             steps {
                 echo 'Code Is Deploying Yeepiiii-late-nightesadfas'
             }
