@@ -1,28 +1,21 @@
-pipeline {
-    agent any
-    options {
-        skipStagesAfterUnstable()
+node {
+    def myGradleContainer = docker.image('gradle:jdk8-alpine')
+    myGradleContainer.pull()
+
+    stage('prep') {
+        git url: 'https://github.com/wardviaene/gs-gradle.git'
     }
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Code Is Building'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Code Is Testing'
-            }
-        }
-        stage('Deploy') {
-             when {
-                branch 'master'
-            }
-            steps {
-                echo 'Code Is Deploying'
-            }
-        }
+
+    stage('build') {
+      myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
+        sh 'cd complete && /opt/gradle/bin/gradle build'
+      }
+    }
+
+    stage('sonar-scanner') {
+      def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+      withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
+        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://localhost:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=gs-gradle -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=GS -Dsonar.sources=complete/src/main/ -Dsonar.tests=complete/src/test/ -Dsonar.language=java -Dsonar.java.binaries=."
+      }
     }
 }
-
-https://oak9io.webhook.office.com/webhookb2/b7301e65-a298-4abf-b1a0-5434d8d1a641@ad5732e0-3498-43d6-a88a-97e995051090/IncomingWebhook/a556cbbcee4240719b806ca882045483/0bccf2ea-23b0-461f-8073-71e3db842b06
